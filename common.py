@@ -153,6 +153,25 @@ def totient(n):
         result *= 1.0 - (1.0/p)
     return int(result)
     
+def gen_pythagorean_triples(limit=None):
+    c, m = 0, 2
+    seen = set()
+ 
+    while not limit or c < limit:
+        for n in range(1, m):
+            k = 1
+            while k*c <= limit:
+                a = m * m - n * n
+                b = 2 * m * n
+                c = m * m + n * n
+                triple = tuple(sorted((k*a, k*b, k*c)))
+
+                if triple not in seen:
+                    yield triple
+                    seen.add(triple)
+                k += 1
+        m += 1
+    
 def dijkstra(graph, initial):
 	costs = {initial: 0}
 	path = {}
